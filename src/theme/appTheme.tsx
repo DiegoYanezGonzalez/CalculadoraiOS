@@ -30,6 +30,7 @@ export const styles = StyleSheet.create({
         backgroundColor:'#333333',
         borderRadius:100,
         justifyContent:'center',
+        marginHorizontal:10
         
     },
     botonTexto:{
@@ -38,6 +39,12 @@ export const styles = StyleSheet.create({
         padding:10,
         fontSize:25,
         fontWeight:'bold'
+    },
+    fila:{
+        flexDirection:'row',
+        justifyContent:'center',
+        marginBottom:18,
+        paddingHorizontal:10
     }
     
 });
