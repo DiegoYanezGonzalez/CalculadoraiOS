@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
         color:'white',
         fontSize:60,
         textAlign:'right',
+        marginBottom:15
 
     },
     resultadoPequeno:{
