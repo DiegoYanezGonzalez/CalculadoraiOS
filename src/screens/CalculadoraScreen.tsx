@@ -14,7 +14,41 @@ const limpiar = () => {
 }
 
 const armarNumero = (numeroTexto:string) => {
-        setNumero( numero + numeroTexto )
+        //Do not accept double point
+        if(numero.includes('.') && numeroTexto === '.' ) return;
+        
+        if(numero.startsWith('0') || numero.startsWith('-0' ) ) {
+ 
+            //Decimal Point
+            if (numeroTexto === '.') {
+                    setNumero(numero+numeroAnterior);
+           //Evaluate if it is another zero, and there is a point
+            } else if ( numeroTexto === '0' && numero.includes('.') ){
+                    setNumero(numero + numeroTexto);
+            //Evaluate if it is diferrent of zero, and not have a point        
+            }else if( numeroTexto !== '0' && !numero.includes('.') ){
+                setNumero(numeroTexto);
+            
+              //Evitar 0.0000
+            }else if( numeroTexto === '0' && !numero.includes('.') ){
+                   setNumero(numero);
+            }else{
+                setNumero(numero+numeroTexto); 
+        }
+
+        }else{
+                setNumero(numero+numeroTexto);
+        }
+
+   }
+
+   const positivoNegativo = () => {
+           if (numero.includes('-') ) {
+                   setNumero(numero.replace('-' , ''));
+           }else{
+                setNumero('-' + numero);
+
+           }
    }
 
     return (
@@ -31,7 +65,7 @@ const armarNumero = (numeroTexto:string) => {
             <View style={styles.fila}>
 
                     <BotonCalc texto="C" color='#9B9B9B' accion={limpiar} />
-                    <BotonCalc texto="+/-" color='#9B9B9B'accion={limpiar}/>
+                    <BotonCalc texto="+/-" color='#9B9B9B'accion={positivoNegativo}/>
                     <BotonCalc texto="del" color='#9B9B9B'accion={limpiar}/>
                     <BotonCalc texto="/" color='#FF9427'accion={limpiar}/>
                     

@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
         backgroundColor:'#333333',
         borderRadius:100,
         justifyContent:'center',
-        marginHorizontal:10
+        marginHorizontal:5
         
     },
     botonTexto:{
