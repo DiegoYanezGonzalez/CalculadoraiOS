@@ -27,7 +27,7 @@ export const useCalculadora = () => {
          
                     //Decimal Point
                     if (numeroTexto === '.') {
-                            setNumero(numero+numeroAnterior);
+                            setNumero(numero+numeroTexto);
                    //Evaluate if it is another zero, and there is a point
                     } else if ( numeroTexto === '0' && numero.includes('.') ){
                             setNumero(numero + numeroTexto);

@@ -12,7 +12,7 @@ import { styles } from '../theme/appTheme';
 export const CalculadoraScreen = () => {
 
         const { 
-                numeroAnterior,
+            numeroAnterior,
             numero,
             limpiar,
             armarNumero,
@@ -33,7 +33,7 @@ export const CalculadoraScreen = () => {
     return (
         <View style={styles.calculadoraContainer}>
                 {
-                        (numeroAnterior === '0') && 
+                        (numeroAnterior !== '0') && 
                         (<Text style={styles.resultadoPequeno}> {numeroAnterior} </Text>)
                 }
            
