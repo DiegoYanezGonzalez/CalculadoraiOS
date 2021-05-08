@@ -1,133 +1,28 @@
 import React, { useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 import { BotonCalc } from '../components/BotonCalc';
+import { useCalculadora } from '../hooks/useCalculadora';
 import { styles } from '../theme/appTheme';
 
-enum Operadores{
-        sumar,
-        restar,
-        multiplicar,
-        dividir
-}
+
 
 export const CalculadoraScreen = () => {
 
-const [numeroAnterior, setNumeroAnterior] = useState('0');
-const [numero, setNumero] = useState('0');
+        const { 
+                numeroAnterior,
+            numero,
+            limpiar,
+            armarNumero,
+            positivoNegativo,
+            btnDelete,
+            btnDividir,
+            btnMultiplicar,
+            btnRestar,
+            btnSumar,
+            calcular
+         } = useCalculadora();
 
-const ultimaOperacion = useRef<Operadores>();
 
-const limpiar = () => {
-     setNumero('0');
-     setNumeroAnterior('0');
-}
-
-const armarNumero = (numeroTexto:string) => {
-        //Do not accept double point
-        if(numero.includes('.') && numeroTexto === '.' ) return;
-        
-        if(numero.startsWith('0') || numero.startsWith('-0' ) ) {
- 
-            //Decimal Point
-            if (numeroTexto === '.') {
-                    setNumero(numero+numeroAnterior);
-           //Evaluate if it is another zero, and there is a point
-            } else if ( numeroTexto === '0' && numero.includes('.') ){
-                    setNumero(numero + numeroTexto);
-            //Evaluate if it is diferrent of zero, and not have a point        
-            }else if( numeroTexto !== '0' && !numero.includes('.') ){
-                setNumero(numeroTexto);
-            
-              //Evitar 0.0000
-            }else if( numeroTexto === '0' && !numero.includes('.') ){
-                   setNumero(numero);
-            }else{
-                setNumero(numero+numeroTexto); 
-        }
-
-        }else{
-                setNumero(numero+numeroTexto);
-        }
-
-   }
-
-   const btnDelete = () =>{
-           let negativo='';
-           let numeroTemp = numero;
-           if(numero.includes('-')){
-                   negativo='-';
-                   numeroTemp=numero.substr(1);
-           }
-           if (numero.length>1){
-                   setNumero(negativo+numeroTemp.slice(0,-1));
-           }else{
-                   setNumero('0');
-           }
-
-   }
-
-   const cambiarNumPorAnterior = () =>{
-           if(numero.endsWith('.')){
-                setNumeroAnterior(numero.slice(0,-1));
-           }else{
-                   setNumeroAnterior(numero);
-           }
-     
-           setNumero('0');
-   }
-
-   const positivoNegativo = () => {
-           if (numero.includes('-') ) {
-                   setNumero(numero.replace('-' , ''));
-           }else{
-                setNumero('-' + numero);
-
-           }
-        }
-
-        const btnDividir = () =>{
-                cambiarNumPorAnterior();
-                ultimaOperacion.current =Operadores.dividir;
-        }
-        const btnMultiplicar = () =>{
-                cambiarNumPorAnterior();
-                ultimaOperacion.current =Operadores.multiplicar;
-        }
-        const btnRestar = () =>{
-                cambiarNumPorAnterior();
-                ultimaOperacion.current =Operadores.restar;
-        }
-        const btnSumar = () =>{
-                cambiarNumPorAnterior();
-                ultimaOperacion.current =Operadores.sumar;
-        }
-
-        const calcular = () => {
-
-                const num1 = Number( numero );
-                const num2 = Number( numeroAnterior );
-        
-                switch ( ultimaOperacion.current ) {
-                    case Operadores.sumar:
-                        setNumero( `${ num1 + num2 }` );
-                        break;
-        
-                    case Operadores.restar:
-                        setNumero( `${ num2 - num1 }` );
-                        break;
-        
-                    case Operadores.multiplicar:
-                        setNumero( `${ num1 * num2 }` );
-                        break;
-        
-                    case Operadores.dividir:
-                        setNumero( `${ num2 / num1 }` );
-                        break;
-        
-                }
-        
-                setNumeroAnterior( '0' );
-            }
     return (
         <View style={styles.calculadoraContainer}>
                 {
